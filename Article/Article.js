@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Custom Article Added',
+    date: 'Decebruary 13rd, 2021',
+    firstParagraph: `A loud series of beeps.`,
+
+    secondParagraph: `Followed by a long, silent pause.`,
+
+    thirdParagraph: `You feel something brush against the back of your leg. You turn around, but nothing is there.`
   }
 ];
 
@@ -111,3 +120,79 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+
+// create function articleMaker
+function articleMaker(dataObj) {
+
+  // grab the values we want from the data object
+  const title = dataObj.title;
+  const date = dataObj.date;
+  const firstParagraph = dataObj.firstParagraph;
+  const secondParagraph = dataObj.secondParagraph;
+  const thirdParagraph = dataObj.thirdParagraph;
+  const expand = 'EXPAND';
+  const collapse = 'COLLAPSE';
+
+  // create elements needed for the article output
+  const article = document.createElement('div');
+  const articleH2Title = document.createElement('h2');
+  const articlePDate = document.createElement('p');
+  const articleP1 = document.createElement('p');
+  const articleP2 = document.createElement('p');
+  const articleP3 = document.createElement('p');
+  const articleSpanExpand = document.createElement('span');
+
+  // append child elements to parent(s)
+  article.appendChild(articleH2Title);
+  article.appendChild(articlePDate);
+  article.appendChild(articleP1);
+  article.appendChild(articleP2);
+  article.appendChild(articleP3);
+  article.appendChild(articleSpanExpand);
+
+  // add class names to elements
+  article.classList.add('article');
+  articlePDate.classList.add('date');
+  articleSpanExpand.classList.add('expandButton');
+
+  // set textContent values as needed
+  articleH2Title.textContent = title;
+  articlePDate.textContent = date;
+  articleP1.textContent = firstParagraph;
+  articleP2.textContent = secondParagraph;
+  articleP3.textContent = thirdParagraph;
+  articleSpanExpand.textContent = expand;
+
+  // add event to toggle article-open on article element
+  articleSpanExpand.addEventListener('click', event => {
+
+    article.classList.toggle('article-open');
+
+    if (articleSpanExpand.textContent === 'EXPAND'){
+
+      articleSpanExpand.textContent = collapse;
+
+    }
+    else {
+
+      articleSpanExpand.textContent = expand;
+
+    }
+
+  });
+
+  // return the article element
+  return article;
+
+}
+
+// grab parent element for articles
+const articles = document.querySelector('.articles');
+
+// loop over each element and append to parent
+data.forEach(dataObj => {
+
+  const articleElement = articleMaker(dataObj);
+  articles.appendChild(articleElement);
+
+});

@@ -33,3 +33,52 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+
+// create function menuMaker
+function menuMaker(dataObj) {
+
+  // create elements
+  const menu = document.createElement('div');
+  const ul = document.createElement('ul');
+
+  // iterate over the list and create li elements for each of them, add text, append to parent, etc
+  const lis = [];
+
+  for (let i = 0; i < dataObj.length; i++) {
+
+    lis.push(document.createElement('li'));
+    lis[i].textContent = dataObj[i];
+    ul.appendChild(lis[i]);
+    //console.log(lis[i]); // this runs
+
+  }
+
+  // append other child elements to parent(s)
+  menu.appendChild(ul);
+
+  // add class names to elements
+  menu.classList.add('menu');
+
+  // grab the menu button element
+  const menuButton = document.querySelector('.menu-button');
+
+  // add event to toggle article-open on article element
+  menuButton.addEventListener('click', event => {
+
+    menu.classList.toggle('menu--open');
+    //console.log("menuButton is clicked"); // this runs
+
+  });
+
+  // return the menu element
+  return menu;
+
+}
+
+// grab the header, make a menu
+let hdr = document.querySelector('.header');
+let menu = menuMaker(menuItems);
+
+// add the menu to the dom via the header class element
+hdr.appendChild(menu);
+//console.log(hdr); // finally works
